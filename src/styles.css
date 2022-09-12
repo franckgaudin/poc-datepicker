@@ -2,3 +2,11 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+.datepicker__wrapper {
+  float: left;
+}
+
+.datepicker__wrapper > p {
+  text-align: left;
+}

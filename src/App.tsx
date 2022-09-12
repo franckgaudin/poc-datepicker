@@ -1,20 +1,22 @@
+import * as React from 'react';
 import { DateTime } from "luxon";
 import Datepicker from "./components/Datepicker/Datepicker";
 
 import "./styles.css";
 
 export default function App() {
-  // const [date, setDate] = React.useState(parseDate("2002-09-02"));
+  const [date, setDate] = React.useState(DateTime.now());
 
-  const date = DateTime.now().toLocaleString();
-
-  const handleChange = (event) => {
-    console.log(event);
-  };
+  const handleChange = (date) => {
+    setDate(DateTime.fromJSDate(date));
+  }
 
   return (
     <div className="App">
-      <Datepicker date={date} onChange={handleChange} />
+      <div className="datepicker__wrapper">
+        <Datepicker date={date} onChange={handleChange} />
+        <p>{`selected date: ${date.toLocaleString()}`}</p>
+      </div>
     </div>
   );
 }
