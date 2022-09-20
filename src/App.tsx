@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { DateTime } from "luxon";
 import Datepicker from "./components/Datepicker/Datepicker";
+import Settings from "./components/Settings/Settings";
 
 import "./styles.css";
 
 export default function App() {
   const dt = DateTime.now();
-  const formatDate = {...DateTime.DATE_MED };
-
+  
   const [date, setDate] = React.useState(dt.toString());
 
   const isoDate = DateTime.fromISO(date);
@@ -17,33 +17,14 @@ export default function App() {
     setDate(date);
   }
 
+  console.log('selected date', date)
+
   return (
     <div className="App">
-      <div className="datepicker__wrapper">
+      <div className="poc-picker">
         <Datepicker date={date} onChange={handleChange} />
       </div>
-      <div className='datepicker__info'>
-        <dl>
-          <dt>
-            selected date
-          </dt>
-          <dd>
-            {isoDate.toLocaleString(formatDate)}
-          </dd>
-          <dt>
-            Heure
-          </dt>
-          <dd>
-            {`${time.hour} : ${time.minute} : ${time.second}`}
-          </dd>
-          <dt>
-            Timezone
-          </dt>
-          <dd>
-            {isoDate.zoneName}
-          </dd>
-        </dl>
-      </div>
+      <Settings date={isoDate} time={time} setDate={setDate} />
     </div>
   );
 }

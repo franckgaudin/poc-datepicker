@@ -10,14 +10,11 @@ interface DatepickerProps {
 
 const Datepicker = (props: DatepickerProps) => {
   const { date, onChange } = props;
-
+  
   const formattedDate = parseAbsoluteToLocal(date);
-  let [value, setValue] = React.useState(formattedDate);
 
   const handleChange = (data) => {
     let { year, month, day } = data;
-
-    setValue(data);
 
     if(onChange) {
       let { hour, minute, second, millisecond} = now(getLocalTimeZone());
@@ -31,7 +28,7 @@ const Datepicker = (props: DatepickerProps) => {
   return (
     <Calendar
       aria-label="Event date"
-      value={value}
+      value={formattedDate}
       onChange={handleChange}
     />
   );
