@@ -35,7 +35,7 @@ const Settings = (props) => {
   return (
     <div className='poc-settings'>
       <h2 className='poc-settings__title'>Settings</h2>
-      <select onChange={handleSettingChange}>
+      <select onChange={handleSettingChange} className="poc-select">
         <option value="">Please choose an option</option>
         <option>2022-09-04T00:00:00.00Z</option>
         <option>2022-09-22T00:00:00.00Z</option>

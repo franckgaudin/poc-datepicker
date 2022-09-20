@@ -37,3 +37,11 @@
   margin-bottom: 0.5rem;
   margin-left: 1rem;
 }
+
+.poc-select {
+  border-color: #e9e9e9;
+  font-size: 0.875rem;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  width: 100%;
+}
