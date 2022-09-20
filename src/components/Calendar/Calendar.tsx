@@ -1,12 +1,21 @@
 import * as React from "react";
 import { useCalendar, useLocale } from "react-aria";
 import { useCalendarState } from "react-stately";
-import { createCalendar } from "@internationalized/date";
+import { GregorianCalendar } from "@internationalized/date";
 
 import CalendarGrid from "./CalendarGrid";
 import Button from "./CalendarButton";
 
 import "./calendar.css";
+
+function createCalendar(identifier) {
+  switch (identifier) {
+    case 'gregory':
+      return new GregorianCalendar();
+    default:
+      throw new Error(`Unsupported calendar ${identifier}`);
+  }
+}
 
 const Calendar = (props) => {
   let { locale } = useLocale();

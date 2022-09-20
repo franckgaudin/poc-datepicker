@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { parseDate, toCalendarDateTime, getLocalTimeZone, now,  CalendarDate, Time } from "@internationalized/date";
+import { parseDate, toCalendarDateTime, getLocalTimeZone, now,  CalendarDate, Time, parseDateTime, parseAbsoluteToLocal, CalendarDateTime } from "@internationalized/date";
 
 import Calendar from "../Calendar/Calendar";
 
@@ -11,23 +11,24 @@ interface DatepickerProps {
 const Datepicker = (props: DatepickerProps) => {
   const { date, onChange } = props;
 
-  // The Datepicker receives a date and converts it to
-  // ISO8601 format to pass it to the Calendar
-  // and return date on UTC format
-  const formattedDate = parseDate(date.toISODate());
+  // console.log('date', date)
+  // console.log(parseDateTime('2022-09-19T13:41:21.966'))
+  // console.log(parseAbsoluteToLocal('2022-09-19T13:46:19.416-04:00'))
+
+  const formattedDate = parseAbsoluteToLocal(date);
   let [value, setValue] = React.useState(formattedDate);
 
   const handleChange = (data) => {
+    let { year, month, day } = data;
+
     setValue(data);
 
     if(onChange) {
-      let localTime = now(getLocalTimeZone())
-      let time = new Time(localTime.hour, localTime.minute, localTime.second, localTime.millisecond);
+      let { hour, minute, second, millisecond} = now(getLocalTimeZone());
+      let date = new CalendarDateTime(year, month, day, hour, minute, second, millisecond);
+      let dateToLocalTimeZone = date.toDate(getLocalTimeZone());
 
-      let date = new CalendarDate(data.year, data.month, data.day);
-      let selectedDate = toCalendarDateTime(date, time).toDate(getLocalTimeZone());
-
-      onChange(selectedDate);
+      onChange(dateToLocalTimeZone.toISOString());
     }
   }
 
