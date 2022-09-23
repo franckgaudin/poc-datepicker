@@ -17,7 +17,9 @@ interface DatepickerProps {
 const Datepicker = (props: DatepickerProps) => {
   const { date, onChange } = props;
 
+  // the calendar receives a utc date and formats it locally
   const formattedDate = parseAbsoluteToLocal(date);
+  console.log("formattedDate", formattedDate);
   // const formattedDate = parseAbsolute(date, "America/Toronto")
 
   const handleChange = (data) => {
