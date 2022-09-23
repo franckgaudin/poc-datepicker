@@ -7,14 +7,14 @@ interface SettingsProps {
   //   time: { hour: string; minute: string; second: string };
 }
 
-const dt = DateTime.fromISO(date);
-const localDt = dt.setZone("local");
-
 const Settings = (props) => {
   const { setDate, date } = props;
   const [settingValue, setSettingValue] = React.useState("");
 
-  const formatDate = { ...DateTime.DATE_MED };
+  const dt = DateTime.fromISO(date);
+  const localDt = dt.setZone("local");
+
+  const formatter = { ...DateTime.DATE_FULL };
 
   const handleSettingChange = (event) => {
     let { value } = event.target;
@@ -41,28 +41,26 @@ const Settings = (props) => {
       <div>
         <pre>
           <code>
-            <b>UTC</b>: {date.toString()}
+            <b>Local</b>: {localDt.toString()}
             <br />
-            <b>Local</b>: ...
+            <b>UTC</b>: {date.toString()}
           </code>
         </pre>
       </div>
-      <select onChange={handleSettingChange} className="poc-select">
+      {/* <select onChange={handleSettingChange} className="poc-select">
         <option value="">Please choose an option</option>
         <option>2022-09-04T00:00:00.00Z</option>
         <option>2022-09-22T00:00:00.00Z</option>
         <option>2022-09-30T19:50:36.156Z</option>
-      </select>
+      </select> */}
       <hr className="poc-divider" />
       <dl className="poc-info">
         <dt>Selected date:</dt>
-        <dd>{date.toLocaleString(formatDate)}</dd>
-        {/* <dt>Heure:</dt>
-        <dd>
-          {`${time.hour}:${formatTime(time.minute)}:${formatTime(time.second)}`}
-        </dd> */}
+        <dd>{localDt.toLocaleString(formatter)}</dd>
+        <dt>Heure:</dt>
+        <dd>{localDt.toLocaleString(DateTime.TIME_WITH_SECONDS)}</dd>
         <dt>Timezone:</dt>
-        <dd>{date.zoneName}</dd>
+        <dd>{localDt.zoneName}</dd>
       </dl>
     </div>
   );
