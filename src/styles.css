@@ -23,7 +23,7 @@
 }
 
 .poc-divider {
-  margin: 2rem 0;
+  margin: 1.5rem 0;
   border: 0;
   border-bottom: 1px solid #dcdcdc;
 }
@@ -31,6 +31,7 @@
 .poc-code {
   background: #f2f2f2;
   padding: 0.25rem 1rem;
+  margin-top: 1.5rem;
 }
 
 .poc-info dt {

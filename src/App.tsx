@@ -6,24 +6,16 @@ import Settings from "./components/Settings/Settings";
 import "./styles.css";
 
 export default function App() {
-  const now = DateTime.now();
   const local = DateTime.local();
   const rezoned = local.setZone("utc");
-
   const apiDate = rezoned;
-
-  //   const dt = DateTime.now();
 
   const [date, setDate] = React.useState(apiDate.toString());
 
-  const isoDate = DateTime.fromISO(date);
-  //   const time = isoDate.toObject();
-
   const handleChange = (date) => {
-    setDate(date);
+    setDate(date.utc);
   };
 
-  console.log("selected date", date);
 
   return (
     <div className="App">

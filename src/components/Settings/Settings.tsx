@@ -4,7 +4,6 @@ import { DateTime } from "luxon";
 interface SettingsProps {
   setDate?: (value: string) => void;
   date: string;
-  //   time: { hour: string; minute: string; second: string };
 }
 
 const Settings = (props) => {
@@ -27,32 +26,14 @@ const Settings = (props) => {
     }
   }, [settingValue]);
 
-  //   const formatTime = (value: number) => {
-  //     if (value <= 9) {
-  //       return `0${value}`;
-  //     }
-
-  //     return value;
-  //   };
-
   return (
     <div className="poc-settings">
       <h2 className="poc-settings__title">Settings</h2>
-      <div>
-        <pre>
-          <code>
-            <b>Local</b>: {localDt.toString()}
-            <br />
-            <b>UTC</b>: {date.toString()}
-          </code>
-        </pre>
-      </div>
-      {/* <select onChange={handleSettingChange} className="poc-select">
+      <select onChange={handleSettingChange} className="poc-select">
         <option value="">Please choose an option</option>
         <option>2022-09-04T00:00:00.00Z</option>
-        <option>2022-09-22T00:00:00.00Z</option>
         <option>2022-09-30T19:50:36.156Z</option>
-      </select> */}
+      </select>
       <hr className="poc-divider" />
       <dl className="poc-info">
         <dt>Selected date:</dt>
@@ -62,6 +43,15 @@ const Settings = (props) => {
         <dt>Timezone:</dt>
         <dd>{localDt.zoneName}</dd>
       </dl>
+      <div className="poc-code">
+        <pre>
+          <code>
+            <b>Local</b>: {localDt.toString()}
+            <br />
+            <b>UTC</b>: {date.toString()}
+          </code>
+        </pre>
+      </div>
     </div>
   );
 };

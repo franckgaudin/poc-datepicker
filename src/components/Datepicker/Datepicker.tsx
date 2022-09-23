@@ -1,44 +1,39 @@
-import * as React from "react";
 import {
   getLocalTimeZone,
   now,
   parseAbsoluteToLocal,
-  parseAbsolute,
-  CalendarDateTime,
+  ZonedDateTime,
 } from "@internationalized/date";
 
 import Calendar from "../Calendar/Calendar";
 
 interface DatepickerProps {
   date: string;
-  onChange?: (event: string) => void;
+  onChange?: (date: {utc: string, local: string}) => void;
 }
+
 
 const Datepicker = (props: DatepickerProps) => {
   const { date, onChange } = props;
 
   // the calendar receives a utc date and formats it locally
   const formattedDate = parseAbsoluteToLocal(date);
-  console.log("formattedDate", formattedDate);
-  // const formattedDate = parseAbsolute(date, "America/Toronto")
 
-  const handleChange = (data) => {
-    let { year, month, day } = data;
+  const handleChange = (date) => {
+    let { year, month, day } = date;
+    let { hour, minute, second, millisecond, offset, timeZone, } = now(getLocalTimeZone());
+    
+    let local = new ZonedDateTime(
+      year, month, day, timeZone, offset,
+      minute, hour, second, millisecond
+    );
 
-    if (onChange) {
-      let { hour, minute, second, millisecond } = now(getLocalTimeZone());
-      let date = new CalendarDateTime(
-        year,
-        month,
-        day,
-        hour,
-        minute,
-        second,
-        millisecond
-      );
-      let dateToLocalTimeZone = date.toDate(getLocalTimeZone());
-
-      onChange(dateToLocalTimeZone.toISOString());
+    // the calendar return a object with utc, local and tzOffset
+    if(onChange) {
+      onChange({
+        utc: local.toAbsoluteString(),
+        local: local.toString(),
+      })
     }
   };
 
